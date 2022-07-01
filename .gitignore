@@ -1,0 +1,6 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/DiscordStatus/bin/Debug/net6.0/keys.json
