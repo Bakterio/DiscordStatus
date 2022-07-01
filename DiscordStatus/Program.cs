@@ -9,25 +9,20 @@ class Program
     
     public static void Main(string[] args)
     {
-        client = new DiscordRpcClient(Keys.GetStringKey("id"));			
-	
-        client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-
-        client.OnReady += (sender, e) =>
-        {
-            Console.WriteLine("Received Ready from user {0}", e.User.Username);
-        };
-		
-        client.OnPresenceUpdate += (sender, e) =>
-        {
-            Console.WriteLine("Received Update! {0}", e.Presence);
-        };
-	
+        Console.ForegroundColor = ConsoleColor.Green;
+        
+        Console.Write("First line: ");
+        string firstLine = Console.ReadLine();
+        Console.Write("Second line: ");
+        string secondLine = Console.ReadLine();
+        
+        Connect();
         client.Initialize();
-
+        
         client.SetPresence(new RichPresence()
         {
-            Details = "Tux is my old discord bot written in java.",
+            Details = firstLine,
+            State = secondLine,
             Buttons = new []
             {
                new Button()
@@ -39,6 +34,23 @@ class Program
         });
         Console.WriteLine("Press any key to close program...");
         Console.ReadKey();
+    }
+    
+    private static void Connect()
+    {
+        client = new DiscordRpcClient(Keys.GetStringKey("id"));			
+	
+        client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+
+        client.OnReady += (sender, e) =>
+        {
+            Console.WriteLine("Connected to user: {0}", e.User.Username);
+        };
+		
+        client.OnPresenceUpdate += (sender, e) =>
+        {
+            Console.WriteLine("New update: {0}", e.Presence);
+        };
     }
 }
 
